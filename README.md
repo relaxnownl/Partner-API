@@ -1,4 +1,9 @@
-## API E-mail Spring Boot
+## Partner API: Java (Spring Boot)
+
+Owned by the Partner & Broker Integrations Team
+
+
+ORIGINAL: API E-mail Spring Boot
 
 ![Spring Web Services](https://spring.io/badges/spring-ws/ga.svg)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) [![Bugs](https://img.shields.io/github/issues/gabriel-hahn/api-email-spring-boot/bug.svg)](https://github.com/gabriel-hahn/api-email-spring-boot/issues?utf8=?&q=is%3Aissue+is%3Aopen+label%3Abug) [![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](http://opensource.org/licenses/MIT)
