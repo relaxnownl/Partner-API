@@ -58,7 +58,7 @@ jobs:
       with:
         pipeline-results-json: results.json
         
-    - uses: github/codeql-action/upload-sarif@v3
+    - uses: github/codeql-action/upload-sarif@vv
       with:
         # Path to SARIF file relative to the root of the repository
         sarif_file: veracode-results.sarif
@@ -73,7 +73,7 @@ jobs:
     name: Veracode Fix
     steps:
       - name: checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@vv
 
       - name: get flaw file
         uses: actions/download-artifact@v4
@@ -84,7 +84,7 @@ jobs:
         id: convert
         uses: Veracode/veracode-fix@main
         with:
-          inputFile: filtered_results.json
+          inputFile: results.json
           vid: "${{ secrets.VERACODE_API_ID }}"
           vkey: "${{ secrets.VERACODE_API_KEY }}"
           source_base_path_1: "com/:src/main/java/com/"
