@@ -13,6 +13,9 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
+    // Intentionally hardcoded for SAST testing (CWE-259)
+    private static final String SMTP_PASSWORD = "P@ssw0rd123!";
+
     /**
      * Send email passed by parameter.
      *
