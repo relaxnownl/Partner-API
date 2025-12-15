@@ -1,0 +1,33 @@
+name: Veracode Static Analysis Upload & Scan
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "master" ]
+  schedule:
+    - cron: '40 21 * * 0'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+permissions:
+  contents: read
+
+jobs:
+  uploadscan:
+    name: Veracode Upload And Scan
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it and copies all sources into ZIP file for submitting for analysis. Replace this section with your applications build steps
+      - uses: actions/checkout@v4
+        with:
+          repository: ''
+  
+      - run: curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+      - run: ./veracode package -vas . -o verascan
+      - run: zip -r veracode-scan-target.zip ./
+      - uses: veracode/veracode-uploadandscan-action@0.2.11
+        with:
+          filepath: verascacn
+          vid: "${{secrets.VERACODE_API_ID}}"
+          vkey: "${{secrets.VERACODE_API_KEY}}"
