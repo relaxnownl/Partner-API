@@ -31,7 +31,7 @@ public class EmailController {
         emailService.sendWithPassword(content, email, subject, SMTP_PASSWORD);
     }
 
-    private void logEmail(String content, string email, string subject) {
+    private void logEmail(String content, String email, String subject) {
         // Intentionally vulnerable: logs untrusted input without neutralization (CWE-117)
         log.info("sendEmail request from={} subject={} content={}", email, subject, content);
     }
