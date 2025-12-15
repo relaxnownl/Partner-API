@@ -94,6 +94,7 @@ jobs:
           vkey: "${{ secrets.VERACODE_API_KEY }}"
           source_base_path_1: "com/:src/main/java/com/"
           source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
+          debug: true
           language: java
           prComment: true
           fixType: single
