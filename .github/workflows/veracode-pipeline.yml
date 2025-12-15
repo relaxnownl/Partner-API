@@ -48,8 +48,13 @@ jobs:
         distribution: 'temurin'
         
     - name: pipeline-scan action step
-      id: pipelien-scan
+      id: pipeline-scan
       uses: veracode/Veracode-pipeline-scan-action@esd-true
+      with:
+        vid: ${{ secrets.VERACODE_API_ID }}
+        vkey: ${{ secrets.VERACODE_API_KEY }}
+        file: "verascan.zip"
+        debug: 1
       
     - name: Convert pipeline scan output to SARIF format
       id: convert
