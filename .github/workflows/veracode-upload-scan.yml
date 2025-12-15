@@ -28,6 +28,6 @@ jobs:
       - run: zip -r veracode-scan-target.zip ./
       - uses: veracode/veracode-uploadandscan-action@0.2.11
         with:
-          filepath: verascacn
+          filepath: verascan
           vid: "${{secrets.VERACODE_API_ID}}"
           vkey: "${{secrets.VERACODE_API_KEY}}"
