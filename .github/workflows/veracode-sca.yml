@@ -1,4 +1,4 @@
-name: Veracode Static Analysis Pipeline Scan
+name: Veracode Dependency Scan
 
 on:
   push:
