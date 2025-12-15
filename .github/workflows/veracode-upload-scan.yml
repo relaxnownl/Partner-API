@@ -25,7 +25,6 @@ jobs:
   
       - run: curl -fsS https://tools.veracode.com/veracode-cli/install | sh
       - run: ./veracode package -vas . -o verascan
-      - run: zip -r veracode-scan-target.zip ./
       - uses: veracode/veracode-uploadandscan-action@0.2.11
         with:
           filepath: verascan
