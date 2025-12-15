@@ -26,9 +26,13 @@ public class EmailController {
             @RequestParam("email") String email,
             @RequestParam("subject") String subject) {
 
-        // Intentionally vulnerable: logs untrusted input without neutralization (CWE-117)
-        log.info("sendEmail request from={} subject={} content={}", email, subject, content);
+        logEmail(content, email, subject);
 
         emailService.sendWithPassword(content, email, subject, SMTP_PASSWORD);
+    }
+
+    private void logEmail(String content, string email, string subject) {
+        // Intentionally vulnerable: logs untrusted input without neutralization (CWE-117)
+        log.info("sendEmail request from={} subject={} content={}", email, subject, content);
     }
 }
