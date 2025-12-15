@@ -1,0 +1,23 @@
+name: Veracode Static Analysis Pipeline Scan
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "master" ]
+  schedule:
+    - cron: '40 21 * * 0'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+permissions:
+  contents: read
+
+jobs:
+  build-and-pipeline-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Veracode Dependency Scanning
+      uses: veracode/veracode-sca@v2.1.15
+          
