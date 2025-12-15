@@ -34,8 +34,9 @@ jobs:
       with:
         repository: ''
 
-    - run: mvn package
-    - run: zip -r veracode-scan-target.zip ./
+    - run: curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+    - run: ./veracode package -vas . -o verascan
+    - run: zip -r verascan.zip verascan
 
     # download the Veracode Static Analysis Pipeline scan jar
     - run: curl --silent --show-error --fail -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
@@ -52,7 +53,7 @@ jobs:
           --veracode_api_id "${{ secrets.VERACODE_API_ID }}" \
           --veracode_api_key "${{ secrets.VERACODE_API_KEY }}" \
           --fail_on_severity "Very High, High" \
-          --file veracode-scan-target.zip
+          --file verascan.zip
       continue-on-error: true
       
     - name: Convert pipeline scan output to SARIF format
