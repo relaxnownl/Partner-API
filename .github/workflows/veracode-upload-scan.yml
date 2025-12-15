@@ -28,7 +28,7 @@ jobs:
       - uses: veracode/veracode-uploadandscan-action@0.2.11
         with:
           filepath: verascan
-          deleteincompletescan: true
+          deleteincompletescan: 2
           scannonfataltoplevelmodules: true
           vid: "${{secrets.VERACODE_API_ID}}"
           vkey: "${{secrets.VERACODE_API_KEY}}"
