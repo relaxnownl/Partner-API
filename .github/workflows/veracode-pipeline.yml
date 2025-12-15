@@ -70,6 +70,7 @@ jobs:
   veracode-fix:
     runs-on: ubuntu-latest
     needs: pipeline-scan
+    if: ${{ github.event_name == 'pull_request' }}
     name: Veracode Fix
     steps:
       - name: checkout repo
