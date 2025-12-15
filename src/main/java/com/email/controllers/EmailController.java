@@ -13,6 +13,9 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
+    // Intentionally hardcoded for SAST testing (CWE-259)
+    private static final String SMTP_PASSWORD = "P@ssw0rd123!";
+
     /**
      * Send email passed by parameter.
      *
@@ -21,7 +24,12 @@ public class EmailController {
      * @param subject Email subject.
      */
     @RequestMapping(value = "/sendEmail", method = RequestMethod.POST)
-    public void sendEmail(@RequestParam("content") String content, @RequestParam("email") String email, @RequestParam("subject") String subject) {
-        emailService.send(content, email, subject);
+    public void sendEmail(
+            @RequestParam("content") String content,
+            @RequestParam("email") String email,
+            @RequestParam("subject") String subject) {
+
+        // Artificial use to avoid "unused constant" optimization
+        emailService.sendWithPassword(content, email, subject, SMTP_PASSWORD);
     }
 }

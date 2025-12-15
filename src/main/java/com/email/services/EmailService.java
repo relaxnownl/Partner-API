@@ -32,4 +32,27 @@ public class EmailService {
 
         mailSender.send(message);
     }
+
+    /**
+     * Intentionally insecure method for Veracode SAST testing.
+     *
+     * @param content  Email content.
+     * @param email    Root.
+     * @param subject  Email subject.
+     * @param password Hard-coded password (CWE-259 test).
+     */
+    public void sendWithPassword(String content, String email, String subject, String password) {
+        // Artificial use of the password to ensure data-flow visibility
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("SMTP password is missing");
+        }
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setText(content);
+        message.setSubject(subject);
+        message.setFrom(email);
+        message.setTo(emailTo);
+
+        mailSender.send(message);
+    }
 }
