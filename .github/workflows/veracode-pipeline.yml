@@ -47,14 +47,14 @@ jobs:
         java-version: 8
         distribution: 'temurin'
         
-    - name: Run Veracode Pipeline Scan
-      run: |
-        java -jar pipeline-scan.jar \
-          --veracode_api_id "${{ secrets.VERACODE_API_ID }}" \
-          --veracode_api_key "${{ secrets.VERACODE_API_KEY }}" \
-          --fail_on_severity "Very High, High" \
-          --file verascan.zip
-      continue-on-error: true
+    - name: pipeline-scan action step
+      id: pipeline-scan
+      uses: veracode/Veracode-pipeline-scan-action@esd-true
+      with:
+        vid: ${{ secrets.VERACODE_API_ID }}
+        vkey: ${{ secrets.VERACODE_API_KEY }}
+        file: "verascan.zip"
+        debug: 1
       
     - name: Convert pipeline scan output to SARIF format
       id: convert
@@ -68,7 +68,7 @@ jobs:
         sarif_file: veracode-results.sarif
     - uses: actions/upload-artifact@v4
       with:
-        name: Veracode Pipeline-Scan Results-${{ github.job }}-${{ github.run_attempt }}
+        name: Veracode Pipeline-Scan Results-${{ github.run_attempt }}
         path: results.json 
 
   veracode-fix:
@@ -83,7 +83,7 @@ jobs:
       - name: get flaw file
         uses: actions/download-artifact@v4
         with:
-          name: Veracode Pipeline-Scan Results-${{ github.job }}-${{ github.run_attempt }}
+          name: Veracode Pipeline-Scan Results-${{ github.run_attempt }}
           
       - name: Create fixes from static findings
         id: convert
@@ -94,6 +94,7 @@ jobs:
           vkey: "${{ secrets.VERACODE_API_KEY }}"
           source_base_path_1: "com/:src/main/java/com/"
           source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
+          debug: true
           language: java
           prComment: true
           fixType: batch

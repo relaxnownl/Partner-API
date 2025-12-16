@@ -1,6 +1,8 @@
 package com.email.controllers;
 
 import com.email.services.EmailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,26 +12,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmailController {
 
+    private static final Logger log = LoggerFactory.getLogger(EmailController.class);
+
     @Autowired
     private EmailService emailService;
 
     // Intentionally hardcoded for SAST testing (CWE-259)
     private static final String SMTP_PASSWORD = "P@ssw0rd123!";
 
-    /**
-     * Send email passed by parameter.
-     *
-     * @param content Email content.
-     * @param email Root.
-     * @param subject Email subject.
-     */
     @RequestMapping(value = "/sendEmail", method = RequestMethod.POST)
     public void sendEmail(
             @RequestParam("content") String content,
             @RequestParam("email") String email,
             @RequestParam("subject") String subject) {
 
-        // Artificial use to avoid "unused constant" optimization
+        logEmail(content, email, subject);
+
         emailService.sendWithPassword(content, email, subject, SMTP_PASSWORD);
+    }
+
+    private void logEmail(String content, String email, String subject) {
+        // Intentionally vulnerable: logs untrusted input without neutralization (CWE-117)
+        log.info("sendEmail request from={} subject={} content={}", email, subject, content);
     }
 }
