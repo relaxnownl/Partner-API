@@ -68,7 +68,7 @@ jobs:
         sarif_file: veracode-results.sarif
     - uses: actions/upload-artifact@v4
       with:
-        name: Veracode Pipeline-Scan Results
+        name: Veracode Pipeline-Scan Results-${{ github.job }}-${{ github.run_attempt }}
         path: results.json 
 
   veracode-fix:
@@ -83,7 +83,7 @@ jobs:
       - name: get flaw file
         uses: actions/download-artifact@v4
         with:
-          name: Veracode Pipeline-Scan Results
+          name: Veracode Pipeline-Scan Results-${{ github.job }}-${{ github.run_attempt }}
           
       - name: Create fixes from static findings
         id: convert
@@ -97,4 +97,4 @@ jobs:
           debug: true
           language: java
           prComment: true
-          fixType: single
+          fixType: batch
