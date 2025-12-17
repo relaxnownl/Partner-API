@@ -83,7 +83,7 @@ jobs:
           inputFile: results.json
           vid: "${{ secrets.VERACODE_API_ID }}"
           vkey: "${{ secrets.VERACODE_API_KEY }}"
-          access_token: ${{ secrets.FIX_ACCESS_TOKEN }}
+          #access_token: ${{ secrets.FIX_ACCESS_TOKEN }}
           source_base_path_1: "com/:src/main/java/com/"
           source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
           debug: true
