@@ -37,15 +37,6 @@ jobs:
     - run: curl -fsS https://tools.veracode.com/veracode-cli/install | sh
     - run: ./veracode package -vas . -o verascan
     - run: zip -r verascan.zip verascan
-
-    # download the Veracode Static Analysis Pipeline scan jar
-    - run: curl --silent --show-error --fail -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
-    - run: unzip -o pipeline-scan-LATEST.zip
-
-    - uses: actions/setup-java@v4
-      with:
-        java-version: 8
-        distribution: 'temurin'
         
     - name: pipeline-scan action step
       id: pipeline-scan
@@ -95,6 +86,8 @@ jobs:
           source_base_path_1: "com/:src/main/java/com/"
           source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
           debug: true
+          createPR: true
+          codeSuggestion: true
           language: java
           prComment: false
           fixType: batch
