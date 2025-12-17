@@ -65,7 +65,7 @@ jobs:
   veracode-fix:
     runs-on: ubuntu-latest
     needs: pipeline-scan
-    if: ${{ github.event_name == 'pull_request' }}
+    if: ${{ github.event_name == 'push' }}
     name: Veracode Fix
     steps:
       - name: checkout repo
@@ -87,7 +87,7 @@ jobs:
           source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
           debug: true
           createPR: true
-          codeSuggestion: true
+          codeSuggestion: false
           language: java
-          prComment: true
+          prComment: false
           fixType: batch
