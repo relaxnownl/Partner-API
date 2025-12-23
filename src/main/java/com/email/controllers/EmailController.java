@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.apache.commons.lang3.StringUtils;
 
 @RestController
 public class EmailController {
@@ -33,6 +34,6 @@ public class EmailController {
 
     private void logEmail(String content, String email, String subject) {
         // Intentionally vulnerable: logs untrusted input without neutralization (CWE-117)
-        log.info("sendEmail request from={} subject={} content={}", email, subject, content);
+        log.info("sendEmail request from={} subject={} content={}", StringUtils.normalizeSpace(email), subject, content);
     }
 }
