@@ -16,7 +16,7 @@ permissions:
 jobs:
   sbom:
     runs-on: ubuntu-latest
-    name: Veracode Container/IaC/Secrets scan
+    name: Veracode SBOM generation
 
     steps:
       - name: checkout
