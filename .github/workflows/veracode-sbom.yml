@@ -1,0 +1,35 @@
+name: Veracode Static Analysis Upload & Scan
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "master" ]
+  schedule:
+    - cron: '40 21 * * 0'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+permissions:
+  contents: read
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    name: Veracode Container/IaC/Secrets scan
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Veracode Container/IaC/Secrets action step
+        uses: veracode/container_iac_secrets_scanning@v1.0.1
+        with:
+          vid: "${{secrets.VERACODE_API_ID}}"
+          vkey: "${{secrets.VERACODE_API_KEY}}"
+          command: "sbom" 
+          type: "directory"
+          source: "./"
+          format: "cyclonedx-json"
+          debug: false
+          fail_build: false
